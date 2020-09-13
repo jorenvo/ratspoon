@@ -71,10 +71,18 @@ function other()
    keymapselect:exit()
 end
 
+function prefix()
+   keymapselect:enter()
+end
+
 function literal()
    -- exit first, otherwise the keyStroke is caught by the keymap again
    keymapselect:exit()
-   hs.eventtap.keyStroke({}, "t")
+   hs.hotkey.deleteAll({"ctrl"}, "t")
+   hs.eventtap.keyStroke({"ctrl"}, "t")
+   hs.hotkey.bind({"ctrl"}, "t", prefix)
+end
+
 function enterRebind()
     keymapselect:exit()
     keymaprebind:enter()
@@ -88,7 +96,7 @@ prevwindow = nil
 keymapselect = hs.hotkey.modal.new()
 keymaprebind = hs.hotkey.modal.new()
 
-hs.hotkey.bind({"ctrl"}, "t", function() keymapselect:enter() end)
+hs.hotkey.bind({"ctrl"}, "t", prefix)
 
 keymapselect:bind("", "t", literal)
 keymapselect:bind("ctrl", "t", other)
