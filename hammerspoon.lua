@@ -1,3 +1,8 @@
+prefix = {
+   mods={"ctrl"},
+   key="t",
+}
+
 function notify(msg)
    hs.notify.new({title="Hammerspoon", informativeText=msg}):send()
 end
@@ -71,16 +76,16 @@ function other()
    keymapselect:exit()
 end
 
-function prefix()
+function prefixAction()
    keymapselect:enter()
 end
 
 function literal()
    -- exit first, otherwise the keyStroke is caught by the keymap again
    keymapselect:exit()
-   hs.hotkey.deleteAll({"ctrl"}, "t")
-   hs.eventtap.keyStroke({"ctrl"}, "t")
-   hs.hotkey.bind({"ctrl"}, "t", prefix)
+   hs.hotkey.deleteAll(prefix["mods"], prefix["key"])
+   hs.eventtap.keyStroke(prefix["mods"], prefix["key"])
+   hs.hotkey.bind(prefix["mods"], prefix["key"], prefixAction)
 end
 
 function enterRebind()
@@ -96,10 +101,10 @@ prevwindow = nil
 keymapselect = hs.hotkey.modal.new()
 keymaprebind = hs.hotkey.modal.new()
 
-hs.hotkey.bind({"ctrl"}, "t", prefix)
+hs.hotkey.bind(prefix["mods"], prefix["key"], prefixAction)
 
 keymapselect:bind("", "t", literal)
-keymapselect:bind("ctrl", "t", other)
+keymapselect:bind(prefix["mods"], prefix["key"], other)
 keymapselect:bind("", "w", showWindows)
 keymapselect:bind("", "r", reloadConfig)
 keymapselect:bind("", "escape", function() keymapselect:exit() end)
