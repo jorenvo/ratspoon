@@ -75,6 +75,9 @@ function literal()
    -- exit first, otherwise the keyStroke is caught by the keymap again
    keymapselect:exit()
    hs.eventtap.keyStroke({}, "t")
+function enterRebind()
+    keymapselect:exit()
+    keymaprebind:enter()
 end
 
 windows = {}
@@ -98,10 +101,8 @@ for i = 0, 9 do
    keymapselect:bind("ctrl", tostring(i), function() selectWinNumber(i) end)
 end
 
-keymapselect:bind("", "n", function()
-    keymapselect:exit()
-    keymaprebind:enter()
-end)
+keymapselect:bind("", "n", enterRebind)
+keymapselect:bind("ctrl", "n", enterRebind)
 
 keymaprebind:bind("", "escape", function() keymaprebind:exit() end)
 for i = 0, 9 do
