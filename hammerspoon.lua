@@ -3,11 +3,13 @@ prefix = {
    key="t",
 }
 
+windows = {}
+prevwindow = nil
+squareDrawing = nil
+
 function notify(msg)
    hs.notify.new({title="Hammerspoon", informativeText=msg}):send()
 end
-
-squareDrawing = nil
 
 function deleteSquarePointer()
    squareDrawing:delete()
@@ -92,9 +94,6 @@ function enterRebind()
     keymapselect:exit()
     keymaprebind:enter()
 end
-
-windows = {}
-prevwindow = nil
 
 -- Don't bind directly in here because it will trigger on keyup, not
 -- keydown. This makes it feel laggy.
