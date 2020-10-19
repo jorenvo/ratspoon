@@ -88,6 +88,7 @@ function literal()
    hs.hotkey.deleteAll(prefix["mods"], prefix["key"])
    hs.eventtap.keyStroke(prefix["mods"], prefix["key"])
    hs.hotkey.bind(prefix["mods"], prefix["key"], prefixAction)
+   keymapselect:bind(prefix["mods"], prefix["key"], other)
 end
 
 function enterRebind()
