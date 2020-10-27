@@ -8,7 +8,7 @@ prevwindow = nil
 squareDrawing = nil
 
 function notify(msg)
-   hs.notify.new({title="Hammerspoon", informativeText=msg}):send()
+   hs.alert.show(msg)
 end
 
 function deleteSquarePointer()
