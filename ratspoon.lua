@@ -106,6 +106,7 @@ hs.hotkey.bind(prefix["mods"], prefix["key"], prefixAction)
 keymapselect:bind("", "t", literal)
 keymapselect:bind(prefix["mods"], prefix["key"], other)
 keymapselect:bind("", "w", showWindows)
+keymapselect:bind("ctrl", "w", showWindows)
 keymapselect:bind("", "r", reloadConfig)
 keymapselect:bind("", "escape", function() keymapselect:exit() end)
 
