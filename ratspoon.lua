@@ -56,7 +56,10 @@ function rebind(n)
 end
 
 function selectwin(w)
-   prevwindow = hs.window.focusedWindow()
+   focused = hs.window.focusedWindow()
+   if focused ~= w then
+      prevwindow = focused
+   end
    w:focus()
 end
 
