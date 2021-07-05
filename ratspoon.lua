@@ -80,6 +80,11 @@ function rebind(n)
       windows[i] = nil
    end
 
+   -- move window already at this number
+   if windows[n] then
+      windows[firstAvailableNumber()] = windows[n]
+   end
+
    windows[n] = window
    notify("Bound " .. window:title() .. " to " .. n)
    keymaprebind:exit()
