@@ -15,4 +15,4 @@ Set your desired prefix key in the `prefix` table. Change bindings by searching 
 
 Todo
 ====
-- Automatically number windows, currently they need to be manually numbered.
+- Automatic window layout like in Ratpoison?
