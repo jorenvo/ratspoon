@@ -120,24 +120,6 @@ function enterRebind()
     keymaprebind:enter()
 end
 
--- watchers
--- appWatchers = {}
--- windowWatchers = {}
--- local events = hs.uielement.watcher
-
--- function appWatcherCallback(appName, eventType, appObject)
---    -- if eventType == events.applicationActivated then
---    if eventType == hs.application.watcher.activated then
---       appWatchers[appObject:pid()] = true
---       notify("switched to " .. appName .. " " .. tablelength(appWatchers) .. " " .. type(appObject))
-
---       -- windowWatchers = appObject:newWatcher(windowWatcherCallback)
---    end
--- end
-
--- function handleAppEvent(element, eventType, watcher, info)
---    notify("appEvent on " .. element:id())
--- end
 function windowCreatedCallback(window, appName, event)
    i = 0
    while windows[i] do
