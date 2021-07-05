@@ -156,8 +156,7 @@ function windowDestroyedCallback(window, appName, event)
    notify("destroyed window for " .. appName .. " was number " .. i)
 end
 
-windowfilter = hs.window.filter.new()
-windowfilter:subscribe({
+hs.window.filter.new():subscribe({
       windowCreated=windowCreatedCallback,
       windowDestroyed=windowDestroyedCallback
 })
