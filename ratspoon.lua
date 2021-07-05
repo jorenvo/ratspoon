@@ -22,7 +22,7 @@ function drawSquarePointer()
    end
 
    -- Get the current co-ordinates of the mouse pointer
-   mousepoint = hs.mouse.getAbsolutePosition()
+   mousepoint = hs.mouse.absolutePosition()
    -- Prepare a big red circle around the mouse pointer
    squareDrawing = hs.drawing.rectangle(hs.geometry.rect(mousepoint.x-10, mousepoint.y-10, 20, 20))
    squareDrawing:setStrokeColor({["red"]=0.478431,["green"]=0.780392,["blue"]=0.960784,["alpha"]=1})
@@ -143,7 +143,7 @@ function windowCreatedCallback(window, appName, event)
    while windows[i] do
       i = i + 1
    end
-   notify("created window for " .. appName .. " should be number " .. i)
+   notify("created window for " .. appName .. " is number " .. i)
    windows[i] = window
 end
 
