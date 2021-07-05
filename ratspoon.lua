@@ -51,8 +51,26 @@ function showWindows()
    keymapselect:exit()
 end
 
+function findWindow(window)
+   local MAXWINDOWS <const> = 9
+   for i = 0, MAXWINDOWS do
+      if windows[i] == window then
+         return i
+      end
+   end
+
+   return -1
+end
+
 function rebind(n)
    window = hs.window.focusedWindow()
+
+   -- unbind if it's already bound
+   i = findWindow(window)
+   if i ~= -1 then
+      windows[i] = nil
+   end
+
    windows[n] = window
    notify("Bound " .. window:title() .. " to " .. n)
    keymaprebind:exit()
@@ -120,17 +138,6 @@ end
 -- function handleAppEvent(element, eventType, watcher, info)
 --    notify("appEvent on " .. element:id())
 -- end
-function findWindow(window)
-   local MAXWINDOWS <const> = 9
-   for i = 0, MAXWINDOWS do
-      if windows[i] == window then
-         return i
-      end
-   end
-
-   return -1
-end
-
 function windowCreatedCallback(window, appName, event)
    i = 0
    while windows[i] do
