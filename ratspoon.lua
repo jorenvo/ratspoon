@@ -102,6 +102,59 @@ function enterRebind()
     keymaprebind:enter()
 end
 
+-- watchers
+-- appWatchers = {}
+-- windowWatchers = {}
+-- local events = hs.uielement.watcher
+
+-- function appWatcherCallback(appName, eventType, appObject)
+--    -- if eventType == events.applicationActivated then
+--    if eventType == hs.application.watcher.activated then
+--       appWatchers[appObject:pid()] = true
+--       notify("switched to " .. appName .. " " .. tablelength(appWatchers) .. " " .. type(appObject))
+
+--       -- windowWatchers = appObject:newWatcher(windowWatcherCallback)
+--    end
+-- end
+
+-- function handleAppEvent(element, eventType, watcher, info)
+--    notify("appEvent on " .. element:id())
+-- end
+function findWindow(window)
+   local MAXWINDOWS <const> = 9
+   for i = 0, MAXWINDOWS do
+      if windows[i] == window then
+         return i
+      end
+   end
+
+   return -1
+end
+
+function windowCreatedCallback(window, appName, event)
+   i = 0
+   while windows[i] do
+      i = i + 1
+   end
+   notify("created window for " .. appName .. " should be number " .. i)
+   windows[i] = window
+end
+
+function windowDestroyedCallback(window, appName, event)
+   i = findWindow(window)
+   if i ~= -1 then
+      windows[i] = nil
+   end
+
+   notify("destroyed window for " .. appName .. " was number " .. i)
+end
+
+windowfilter = hs.window.filter.new()
+windowfilter:subscribe({
+      windowCreated=windowCreatedCallback,
+      windowDestroyed=windowDestroyedCallback
+})
+
 -- Don't bind directly in here because it will trigger on keyup, not
 -- keydown. This makes it feel laggy.
 keymapselect = hs.hotkey.modal.new()
