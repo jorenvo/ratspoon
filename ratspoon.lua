@@ -156,6 +156,7 @@ function bindRunningApps()
       Spotify=9,
    }
 
+   windows = {}
    for _, app in ipairs(hs.application.runningApplications()) do
       for _, window in ipairs(app:allWindows()) do
          appName = window:application():name()
@@ -169,9 +170,9 @@ function bindRunningApps()
          end
       end
    end
-end
 
-bindRunningApps()
+   keymapselect:exit()
+end
 
 -- Don't bind directly in here because it will trigger on keyup, not
 -- keydown. This makes it feel laggy.
@@ -185,6 +186,7 @@ keymapselect:bind(prefix["mods"], prefix["key"], other)
 keymapselect:bind("", "w", showWindows)
 keymapselect:bind("ctrl", "w", showWindows)
 keymapselect:bind("", "r", reloadConfig)
+keymapselect:bind("shift", "d", bindRunningApps)
 keymapselect:bind("", "escape", function() keymapselect:exit() end)
 
 for i = 0, 9 do
@@ -199,6 +201,8 @@ keymaprebind:bind("", "escape", function() keymaprebind:exit() end)
 for i = 0, 9 do
    keymaprebind:bind("", tostring(i), function() rebind(i) end)
 end
+
+bindRunningApps()
 
 function keymapselect:entered()
    drawSquarePointer()
