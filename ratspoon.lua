@@ -41,7 +41,10 @@ function showWindows()
    s = ""
    for i = 0, 9 do
       if windows[i] ~= nil then
-         s = s .. tostring(i) .. " - " .. windows[i]:title() .. "\n"
+         if s ~= "" then
+            s = s .. "\n"
+         end
+         s = s .. tostring(i) .. " - " .. windows[i]:title()
       end
    end
    notify(s)
