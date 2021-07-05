@@ -2,6 +2,12 @@ prefix = {
    mods={"ctrl"},
    key="t",
 }
+appNameToPreferredNumber = {
+   Emacs=0,
+   Safari=1,
+   Terminal=2,
+   Spotify=9,
+}
 
 windows = {}
 prevwindow = nil
@@ -155,20 +161,13 @@ hs.window.filter.new():subscribe({
 })
 
 function bindRunningApps()
-   appNameToNumber = {
-      Emacs=0,
-      Safari=1,
-      Terminal=2,
-      Spotify=9,
-   }
-
    windows = {}
    for _, app in ipairs(hs.application.runningApplications()) do
       for _, window in ipairs(app:allWindows()) do
          appName = window:application():name()
          -- Skip auto-numbering Finder window that does not exist
          if not (appName == "Finder" and window:title() == "") then
-            number = appNameToNumber[appName]
+            number = appNameToPreferredNumber[appName]
             if not number then
                number = firstAvailableNumber()
             end
