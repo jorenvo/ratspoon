@@ -62,6 +62,14 @@ function findWindow(window)
    return -1
 end
 
+function firstAvailableNumber()
+   i = 0
+   while windows[i] do
+      i = i + 1
+   end
+   return i
+end
+
 function rebind(n)
    window = hs.window.focusedWindow()
 
@@ -121,10 +129,7 @@ function enterRebind()
 end
 
 function windowCreatedCallback(window, appName, event)
-   i = 0
-   while windows[i] do
-      i = i + 1
-   end
+   i = firstAvailableNumber()
    notify("created window for " .. appName .. " is number " .. i)
    windows[i] = window
 end
@@ -142,6 +147,31 @@ hs.window.filter.new():subscribe({
       windowCreated=windowCreatedCallback,
       windowDestroyed=windowDestroyedCallback
 })
+
+function bindRunningApps()
+   appNameToNumber = {
+      Emacs=0,
+      Safari=1,
+      Terminal=2,
+      Spotify=9,
+   }
+
+   for _, app in ipairs(hs.application.runningApplications()) do
+      for _, window in ipairs(app:allWindows()) do
+         appName = window:application():name()
+         -- Skip auto-numbering Finder window that does not exist
+         if not (appName == "Finder" and window:title() == "") then
+            number = appNameToNumber[appName]
+            if not number then
+               number = firstAvailableNumber()
+            end
+            windows[number] = window
+         end
+      end
+   end
+end
+
+bindRunningApps()
 
 -- Don't bind directly in here because it will trigger on keyup, not
 -- keydown. This makes it feel laggy.
