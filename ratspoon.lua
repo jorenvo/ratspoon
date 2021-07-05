@@ -40,11 +40,12 @@ end
 function showWindows()
    s = ""
    for i = 0, 9 do
-      if windows[i] ~= nil then
+      window = windows[i]
+      if window ~= nil then
          if s ~= "" then
             s = s .. "\n"
          end
-         s = s .. tostring(i) .. " - " .. windows[i]:title()
+         s = s .. tostring(i) .. " - " .. window:application():name() .. " - " .. window:title()
       end
    end
    notify(s)
