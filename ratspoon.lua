@@ -17,6 +17,10 @@ function notify(msg)
    hs.alert.show(msg)
 end
 
+function log(msg)
+   print(msg)
+end
+
 function deleteSquarePointer()
    squareDrawing:delete()
    squareDrawing = nil
@@ -142,7 +146,7 @@ end
 
 function windowCreatedCallback(window, appName, event)
    i = firstAvailableNumber()
-   notify("created window for " .. appName .. " is number " .. i)
+   log("created window for " .. appName .. " is number " .. i)
    windows[i] = window
 end
 
@@ -152,7 +156,7 @@ function windowDestroyedCallback(window, appName, event)
       windows[i] = nil
    end
 
-   notify("destroyed window for " .. appName .. " was number " .. i)
+   log("destroyed window for " .. appName .. " was number " .. i)
 end
 
 hs.window.filter.new():subscribe({
